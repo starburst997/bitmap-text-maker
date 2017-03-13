@@ -43,3 +43,5 @@ Example output:
   }
 }
 ```
+
+![Texture](/example/montserrat/texture.png?raw=true "Example")
