@@ -217,13 +217,19 @@ class BitmapTextMaker
     }
 
     // Trim BitmapData
+    texture.setPixel32( 0, 0, 0xFF000000 );
     var trimmed = trimAlpha( texture ).bmpd;
+    trimmed.setPixel32( 0, 0, 0x00000000 );
     texture.dispose();
-
+    
     if ( bitmap != null ) bitmap.bitmapData = trimmed;
 
     trace( "TEXTURE", trimmed.width, trimmed.height );
 
+    // Add to JSON
+    json.width = trimmed.width;
+    json.height = trimmed.height;
+    
     // Convert to PNG
     var byteArray:ByteArray = new ByteArray();
     var png = trimmed.encode(trimmed.rect, new PNGEncoderOptions(), byteArray);
