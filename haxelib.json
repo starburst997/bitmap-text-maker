@@ -1,0 +1,16 @@
+{
+  "name" : "bitmap-text-maker",
+  "url" : "https://github.com/starburst997/bitmap-text-maker",
+  "license" : "MIT",
+  "tags": ["tilesheet", "spritesheet", "bitmap", "text"],
+  "description" : "Create bitmap text font spritesheet.",
+  "version" : "0.0.1",
+  "classPath": "src/",
+  "releasenote" : "",
+  "contributors" : ["starburst997"],
+  "dependencies" : {
+    "zip": "",
+    "file-save": "",
+    "bin-packing": ""
+  }
+}

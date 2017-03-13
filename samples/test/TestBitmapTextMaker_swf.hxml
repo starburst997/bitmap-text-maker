@@ -1,0 +1,8 @@
+-lib statistics
+-lib trace-timer
+-lib bitmap-text-maker
+-cp src
+-swf bin/TestBitmapTextMaker.swf
+-swf-header 800:600:60:FFFFFF
+-swf-version 15.0
+-main TestBitmapTextMaker
