@@ -9,6 +9,9 @@ TODO: Add a way to select font + select properties, for now you need to edit the
 TODO: Add retina x2, x3 image
 
 Example output:
+
+![Texture](/example/montserrat/texture.png?raw=true "Example")
+
 ```json
 {
   "c100": {
@@ -24,24 +27,23 @@ Example output:
   "c101": {
     "char": "e",
     "code": 101,
-    "height": 13,
     "originX": 2,
     "originY": 13,
     "width": 12,
+    "height": 13,
     "x": 27,
     "y": 83
   },
   "c102": {
     "char": "f",
     "code": 102,
-    "height": 17,
     "originX": 2,
     "originY": 9,
     "width": 9,
+    "height": 17,
     "x": 14,
     "y": 128
   }
+  ...
 }
 ```
-
-![Texture](/example/montserrat/texture.png?raw=true "Example")
