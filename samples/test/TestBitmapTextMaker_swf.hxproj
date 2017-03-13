@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="bin\TestBitmapTextMaker.swf" />
+    <movie path="bin/TestBitmapTextMaker.swf" />
     <movie fps="60" />
     <movie width="800" />
     <movie height="600" />
@@ -15,7 +15,7 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="src" />
+    <class path="." />
   </classpaths>
   <!-- Build options -->
   <build>
