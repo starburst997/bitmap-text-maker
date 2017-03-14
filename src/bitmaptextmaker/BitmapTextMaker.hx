@@ -126,7 +126,7 @@ class BitmapTextMaker
       var zip = new ZipWriter();
       for ( fnt in fonts )
       {
-        zip.addBytes( fnt.bytes, fnt.name, false, date );
+        zip.addBytes( fnt.bytes, fnt.name + ".fnt", false, date );
       }
 
       FileSave.saveBytes( zip.finalize(), "fonts.zip" );
