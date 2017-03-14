@@ -168,6 +168,11 @@ class BitmapTextMaker
     var json:Dynamic = {};
     json.name = name;
 
+    json.size = size;
+    json.color = color;
+    json.bold = bold;
+    json.italic = italic;
+    
     // Loop each letter
     for ( i in 0...glyphs.length )
     {
