@@ -172,7 +172,9 @@ class BitmapTextMaker
     json.color = color;
     json.bold = bold;
     json.italic = italic;
-    
+
+    json.glyphs = [];
+
     // Loop each letter
     for ( i in 0...glyphs.length )
     {
@@ -215,7 +217,8 @@ class BitmapTextMaker
       //trace(info.originX, info.originY);
 
       // Save into JSON
-      Reflect.setField(json, 'c$code', info);
+      //Reflect.setField(json, 'c$code', info);
+      json.glyphs.push( info );
 
       // Clean
       bmpd.dispose();
@@ -226,7 +229,7 @@ class BitmapTextMaker
     var trimmed = trimAlpha( texture ).bmpd;
     trimmed.setPixel32( 0, 0, 0x00000000 );
     texture.dispose();
-    
+
     if ( bitmap != null ) bitmap.bitmapData = trimmed;
 
     trace( "TEXTURE", trimmed.width, trimmed.height );
@@ -234,7 +237,7 @@ class BitmapTextMaker
     // Add to JSON
     json.width = trimmed.width;
     json.height = trimmed.height;
-    
+
     // Convert to PNG
     var byteArray:ByteArray = new ByteArray();
     var png = trimmed.encode(trimmed.rect, new PNGEncoderOptions(), byteArray);
