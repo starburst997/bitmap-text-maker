@@ -244,7 +244,7 @@ class BitmapTextMaker
 
     // Add file to Zip
     writer.addBytes( Bytes.ofData( byteArray ), "texture.png", false, date );
-    writer.addString( Json.stringify(json), "texture.json", false, date );
+    writer.addString( Json.stringify(json), "texture.json", true, date );
 
     // Save Zip
     //FileSave.saveBytes( writer.finalize(), name + ".zip" );
