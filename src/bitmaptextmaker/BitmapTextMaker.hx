@@ -68,6 +68,7 @@ class BitmapTextMaker
 
   // Text Field
   private static var textField:TextField = null;
+  private static var shadow:TextField = null;
 
   // Bitmap
   private static var bitmap:Bitmap = null;
@@ -108,7 +109,21 @@ class BitmapTextMaker
 
     textField.x = 0;
     textField.y = 0;
+    
+    shadow = new TextField();
+    shadow.embedFonts = true;
+    shadow.selectable = false;
+    shadow.antiAliasType = AntiAliasType.NORMAL;
 
+    shadow.width = 1000;
+    shadow.height = 1000;
+
+    shadow.x = 1;
+    shadow.y = 1;
+    
+    shadow.visible = false;
+
+    sprite.addChild( shadow );
     sprite.addChild( textField );
   }
 
@@ -134,7 +149,7 @@ class BitmapTextMaker
   }
 
   // Create texture
-  public static function createFont( font:Class<Font>, width:Int, height:Int, size:Float, color:UInt, bold:Bool, italic:Bool, glyphs:String = null ):FNT
+  public static function createFont( font:Class<Font>, width:Int, height:Int, size:Float, color:UInt, bold:Bool, italic:Bool, glyphs:String = null, shadowColor:Null<UInt> = null ):FNT
   {
     if ( textField == null ) prepare();
     if ( glyphs == null ) glyphs = GLYPHS;
@@ -151,7 +166,19 @@ class BitmapTextMaker
     // Set format
     var textFormat = new TextFormat(name, size, color, bold, italic);
     textField.defaultTextFormat = textFormat;
-
+    
+    if ( shadowColor != null )
+    {
+      shadow.defaultTextFormat = new TextFormat(name, size, shadowColor, bold, italic);
+      shadow.visible = true;
+      
+      trace("shadow");
+    }
+    else
+    {
+      shadow.visible = false;
+    }
+    
     // Test
     //textField.text = "Hello!";
 
@@ -172,9 +199,13 @@ class BitmapTextMaker
     json.color = color;
     json.bold = bold;
     json.italic = italic;
+    json.shadow = shadow.visible;
+    json.shadowColor = shadow.visible ? shadowColor : 0x000000;
 
     json.glyphs = [];
 
+    var lp = shadow.visible ? 2 : LETTER_PADDING;
+    
     // Loop each letter
     for ( i in 0...glyphs.length )
     {
@@ -186,11 +217,12 @@ class BitmapTextMaker
       info.code = code;
 
       textField.text = char;
+      shadow.text = char;
 
       // BitmapData of single letter
-      var bmpd = new BitmapData( Std.int(textField.textWidth + LETTER_PADDING * 2), Std.int(textField.textHeight + LETTER_PADDING * 2), true, 0x00000000 );
+      var bmpd = new BitmapData( Std.int(textField.textWidth + lp * 2), Std.int(textField.textHeight + lp * 2), true, 0x00000000 );
 
-      bmpd.drawWithQuality( textField, null, null, null, null, true, StageQuality.HIGH_16X16 );
+      bmpd.drawWithQuality( shadow.visible ? textField.parent : textField, null, null, null, null, true, StageQuality.HIGH_16X16 );
 
       // Trim
       var trim = trimAlpha(bmpd);
@@ -199,10 +231,10 @@ class BitmapTextMaker
       bmpd = trim.bmpd;
 
       // Add to bin-packing
-      var rect = packer.insert( bmpd.width + LETTER_PADDING * 2, bmpd.height + LETTER_PADDING * 2 );
+      var rect = packer.insert( bmpd.width + lp * 2, bmpd.height + lp * 2 );
 
       // Add to Texture
-      texture.copyPixels( bmpd, bmpd.rect, new Point(rect.x + LETTER_PADDING, rect.y + LETTER_PADDING) );
+      texture.copyPixels( bmpd, bmpd.rect, new Point(rect.x + lp, rect.y + lp) );
 
       // Add rect to JSON
       info.x = rect.x;
